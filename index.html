@@ -1,0 +1,122 @@
+<!-- index.html - Template pour vente de voitures électriques -->
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ElectroCars — Voitures électriques</title>
+  <meta name="description" content="Catalogue et vente de voitures électriques - modèles, autonomie, financement" />
+  <style>
+    :root{
+      --accent:#0ea5a3;
+      --dark:#0f172a;
+      --muted:#64748b;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      font-family: Inter, system-ui, Arial, sans-serif;
+    }
+    body{margin:0;background:linear-gradient(180deg,#eef2f7, #f8fafc);color:var(--dark)}
+    header{background:var(--card);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(15,23,42,0.06)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav a{margin-left:14px;color:var(--muted);text-decoration:none}
+    main{padding:24px;max-width:1100px;margin:20px auto}
+    .hero{display:flex;gap:24px;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#ffffff, #f7fbfc);padding:28px;border-radius:12px;box-shadow:0 6px 30px rgba(10,10,20,0.04)}
+    .hero h1{margin:0;font-size:1.6rem}
+    .filters{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    input,select,button{padding:8px 10px;border-radius:8px;border:1px solid #e6eef2}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(12,15,25,0.03)}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:0.95rem}
+    .tag{background:var(--glass);padding:6px 8px;border-radius:8px;font-size:0.85rem}
+    footer{max-width:1100px;margin:26px auto;padding:20px;color:var(--muted);font-size:0.9rem}
+    .contact{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:20px}
+    @media (max-width:820px){.contact{grid-template-columns:1fr}}
+    .calc{background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(12,15,25,0.04)}
+    .btn{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">EC</div>
+      <div>
+        <div style="font-weight:700">ElectroCars</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Voitures électriques — Achat & financement</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#catalog">Catalogue</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Conduisez propre. Conduisez futur.</h1>
+        <p style="color:var(--muted)">Découvrez nos modèles électriques — autonomie réelle, options de financement et disponibilité en stock.</p>
+
+        <div class="filters" aria-label="Filtres">
+          <select id="filter-range">
+            <option value="any">Autonomie (km) — Toutes</option>
+            <option value="200">≥ 200 km</option>
+            <option value="350">≥ 350 km</option>
+            <option value="500">≥ 500 km</option>
+          </select>
+
+          <select id="filter-price">
+            <option value="any">Prix — Tous</option>
+            <option value="30000">≤ 30 000 €</option>
+            <option value="45000">≤ 45 000 €</option>
+            <option value="60000">≤ 60 000 €</option>
+          </select>
+
+          <input id="search" placeholder="Rechercher modèle / mot-clé" />
+          <button class="btn" id="clear">Réinitialiser</button>
+        </div>
+      </div>
+
+      <div style="width:360px">
+        <div class="calc">
+          <h3 style="margin:0 0 8px 0">Simulateur de mensualité</h3>
+          <label>Prix (€)</label>
+          <input id="loan-price" type="number" placeholder="35000" />
+          <label>Apport (€)</label>
+          <input id="loan-deposit" type="number" placeholder="5000" />
+          <label>Durée (mois)</label>
+          <select id="loan-months">
+            <option>36</option><option>48</option><option>60</option><option>72</option>
+          </select>
+          <label>Taux annuel (%)</label>
+          <input id="loan-rate" type="number" step="0.01" value="4" />
+          <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+            <button class="btn" id="calculate">Calculer</button>
+            <div id="monthly" style="font-weight:700"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" style="margin-top:18px">
+      <h2>Nos modèles</h2>
+      <div class="grid" id="catalog-grid">
+        <!-- Les cartes seront injectées par JS -->
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:26px">
+      <h2>Contact & essais</h2>
+      <div class="contact">
+        <div>
+          <p style="color:var(--muted)">Remplis le formulaire pour demander un essai ou plus d'informations.</p>
+
+          <!-- Formulaire conçu pour Netlify (si déployé sur Netlify, il captera les envois).
+               Si tu déploies sur GitHub Pages, utilise Formspree ou ton backend pour recevoir les messages. -->
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact" />
+            <p style="display:none"><label>Ne pas remplir<input name="bot-field" /></label></p>
+            <p><label>Nom<br/><input name="name" required /></label></p>
+            <p><label>Email<br/><input type="email" name="email" required /></label></p>
+            <p><
